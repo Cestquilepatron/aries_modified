@@ -116,9 +116,9 @@ pub fn h_step(initial_state: &State, op: &Op, ops: &Operators, numstep: i32, his
                 }else{
                     //rien ne change on reprend l'ancien historique
                     let oldresume=histo.get(count);
-                    //newhisto.push(oldresume);
+                    newhisto.push(*oldresume.unwrap());
                     //j'ai essayé mais ça ne fonctionne pas plus
-                    newhisto.push(Some(oldresume));
+                    //newhisto.push(Some(oldresume));
                 }
                 count=count+1;            
             }
@@ -126,14 +126,82 @@ pub fn h_step(initial_state: &State, op: &Op, ops: &Operators, numstep: i32, his
     }
     (etat,newhisto)
 }
-/*
-pub fn causalite(etape: i64, initial_state: &State, op: &Op, ops: &Operators)->Vec<Op>{
+
+
+
+
+
+
+
+pub fn causalite(etape: i32,plan: Vec<Op> ,initial_state: &State, ops: &Operators)->Vec<Resume>{
     //initialisation
+    let num=etape as usize;
+    let op=plan.get(num);
+    let op = op.unwrap();
+    let mut etat=initial_state.clone();
+    let mut histo = Vec::new();
+    for var in initial_state.literals(){
+        let res=defaultresume();
+        histo.push(res);
+    }
+
+
+    let mut count =0;
+
+    //liste des variables utilisé dans la précond de op
+    let mut vecvar=Vec::new();
+
+    //vecteur qui contiendra les resume ayant un lien avec l'op choisis
+    let mut link=Vec::new();
+
 
     //etape construction histogramme lié
-    hstep
+    while count < etape {
+        let bob=count as usize;
+        let opt = plan.get(bob);
+        let opt = opt.unwrap();
+        let (e,h)=h_step(&etat,opt,ops,count,histo);
+        etat=e;
+        histo=h;
+        count=count+1;
+    }
+    
+    //Sélection des variable utilisé dans les préconditions
+    let precond = ops.preconditions(*op);
+    let mut count2 = 0;
+    for var in etat.literals(){
+        for pre in precond{
+            if var.var()==pre.var(){
+                vecvar.push(count2);
+            }
+        }
+        count2 = count2+1;
+    }
 
     //liaison opérateur grâce à histogramme et précondition opé
+    for variableutilise in vecvar{
+        let resume = histo.get(variableutilise).clone();
+        //let resum=resume.unwrap();
+        link.push(*resume.unwrap());
+    }
 
+    link
+
+/*
+    if histo.get()== precond {
+        link.push(histo.get()) 
+    }
+*/
+}
+
+/*
+pub fn affichage_cause(cause: Vec<Resume>,etape: i32,op: Op,ops: Operators){
+    let opname=ops.name(op);
+    println!("Affichage des Opérateur nécessaire à {} de l'étape {}",symbols.format(opname),etape);
+    println!("=========");
+    for res in cause{
+        let name=ops.name(res.op().unwrap());
+        println!("{}, de l'étape {}",symbols.format(name),res.numero());
+    }
 
 }*/

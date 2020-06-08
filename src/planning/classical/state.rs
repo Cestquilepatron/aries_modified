@@ -341,14 +341,16 @@ impl Operators {
     }
 }
 
+//Pour lier Op et une etape 
+#[derive(Debug, Clone, Copy, Ord, PartialOrd, Eq, PartialEq)]
 pub struct Resume{
-    Opkey: Option<Op>,
+    opkey: Option<Op>,
     etape: i32,
 }
 
 impl Resume{
-    pub fn Op(&self)-> Option<Op> {
-        self.Opkey
+    pub fn op(&self)-> Option<Op> {
+        self.opkey
     }
     
     pub fn numero(&self)-> i32{
@@ -358,16 +360,16 @@ impl Resume{
     
 
 }
-pub fn newresume(Ope: Op,num: i32)->Resume{
+pub fn newresume(ope: Op,num: i32)->Resume{
         Resume {
-            Opkey : Some(Ope),
+            opkey : Some(ope),
             etape : num,
         }
     }
 
 pub fn defaultresume()->Resume{
         Resume{
-            Opkey : None,
+            opkey : None,
             etape : -1,
         }
     }
