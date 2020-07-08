@@ -1200,7 +1200,7 @@ pub fn xmenace2(plan : Vec<Op>,ground: &GroundProblem)->Vec<Obligationtemp>{
                                                 for f in effs{
                                                     if eff.var()==f.var(){
                                                         let ot=newot(*j,c2,s.op().unwrap(),s.numero());
-                                                        write!(output, "L'étape {} et doit être placé avant l'étape {} car elle menace le lien entre {} et {}\n",c1,s.numero(),c1,s.numero())
+                                                        write!(output, "L'étape {} et doit être placé avant l'étape {} car elle menace le lien entre {} et {}\n",c2,s.numero(),c1,s.numero())
                                                             .expect("Something went wrong writing the file");
                                                         out.push(ot);
                                                     }
@@ -1223,3 +1223,4 @@ pub fn xmenace2(plan : Vec<Op>,ground: &GroundProblem)->Vec<Obligationtemp>{
     }
     out
 }
+
