@@ -140,7 +140,7 @@ where
     for instance in &chronicles.chronicles {
         let ch = &instance.chronicle;
         check(
-            ch.prez == ctx.tautology(),
+            ch.presence == ctx.tautology(),
             "A chronicle instance is optional",
         )?;
         for eff in &ch.effects {
@@ -199,12 +199,12 @@ where
         while let Some(x) = iter.next() {
             match x {
                 Holed::Param(i) => {
-                    let tpe = match template.params[*i].0 {
+                    let tpe = match template.parameters[*i].0 {
                         Type::Symbolic(tpe) => tpe,
-                        _ => return Err(format!("Non symbolic parameter")),
+                        _ => return Err("Non symbolic parameter".to_string()),
                     };
                     correspondance.insert(*i, parameters.len());
-                    parameters.push((tpe, template.params[*i].1.clone()))
+                    parameters.push((tpe, template.parameters[*i].1.clone()))
                 }
                 _ => return Err("Expected an action parameter but got an expression".to_string()),
             }
