@@ -1,3 +1,50 @@
+
+#This repertory isn't useful anymore, I work on a fork branch from Aries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Aries
 
 Aries is a project aimed at exploring constraint-based techniques for automated planning and scheduling.
